@@ -51,6 +51,20 @@ export class ImovelSmartResponseDto {
   unidade2: string;
 
   @Expose()
+  @ApiProperty({ 
+    description: 'Fotos do imóvel',
+    type: [Object],
+    required: false 
+  })
+  fotos?: Array<{
+    nome?: string;
+    url: string;
+    urlOriginal?: string;
+    urlThumbnail?: string;
+    urlThumbnailMiddleHD?: string;
+  }>;
+
+  @Expose()
   @ApiProperty({ description: 'Indica se o imóvel é novo', required: false })
   novo?: boolean;
 
@@ -81,14 +95,6 @@ export class ImovelSmartResponseDto {
   @Expose()
   @ApiProperty({ description: 'ID da foto de destaque' })
   fotodestaque: number;
-
-  @Expose()
-  @ApiProperty({ description: 'Indica se o imóvel está em exposição' })
-  expoimovel: string;
-
-  @Expose()
-  @ApiProperty({ description: 'Indica se o imóvel está no site' })
-  siteimob: string;
 
   @Expose()
   @ApiProperty({ description: 'Localização', required: false })
@@ -603,8 +609,8 @@ export class ImovelSmartResponseDto {
   quartoOrdenacao: number;
 
   @Expose()
-  @ApiProperty({ description: 'Ordenação por preço de locação' })
-  precoLocacaoOrdenacao: number;
+  @ApiProperty({ description: 'Preço de locação' })
+  precoLocacao: number;
 
   @Expose()
   @ApiProperty({ description: 'Ordenação por preço de venda' })

@@ -11,6 +11,7 @@ export interface Imovel {
   numero: string;
   areaterreno: string;
   fotodestaque: number;
+  urlFotoDestaque: string;
   localizacao: string;
   complemento: string;
   descricao: string;

@@ -5,7 +5,7 @@ import {
   TipoImovelId,
   TipoPadraoImovelId,
   TipoTerrenoLoteamentoId,
-} from './imovel.enum';
+} from '../enums/imovel.enum';
 import { TipoPadraoImovel } from '../interfaces/tipo-padrao-imovel.interface';
 import { TipoTerrenoLoteamento } from '../interfaces/tipo-terreno-loteamento';
 

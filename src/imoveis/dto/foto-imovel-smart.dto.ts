@@ -1,11 +1,9 @@
 export class FotoImovelSmartDto {
-  id?: number;
-  nome?: string;
-  descricao?: string;
-  url?: string;
-  urlThumbnail?: string;
-  urlThumbnailMiddleHD?: string;
+  nome: string;
+  descricao: string;
+  destaque: number;
+  url: string;
   urlOriginal?: string;
-  ordem?: number;
-  destaque?: boolean;
+  urlThumbnail: string;
+  urlThumbnailMiddleHD: string;
 }

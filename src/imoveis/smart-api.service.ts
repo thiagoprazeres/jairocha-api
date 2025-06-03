@@ -18,14 +18,14 @@ export class SmartApiService {
     private readonly configService: ConfigService,
   ) {}
 
-  private async fetchImoveis(
+  async fetchImoveis(
     token: string,
     quantidadeImoveis: number,
     statusImovelStr?: 'V' | 'L',
     novos?: boolean,
     usados?: boolean,
     tipoImovel?: TipoImovelId
-  ): Promise<any[]> {
+  ): Promise<ImovelSmartResponseDto[]> {
     const params: ImovelSmartRequestDto = {
       token,
       quantidadeImoveis,
@@ -117,7 +117,7 @@ export class SmartApiService {
         // Limita ao número solicitado de imóveis e converte para DTO
         return plainToInstance(
           ImovelSmartResponseDto, 
-          todosImoveis.slice(0, quantidadeImoveis),
+          todosImoveis,
           { excludeExtraneousValues: true }
         );
       }
