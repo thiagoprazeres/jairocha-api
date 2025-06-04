@@ -1,4 +1,4 @@
-import { FotoImovel } from './foto-imovel.interface';
+import { FotoImovelDto } from '../dto/foto-imovel.dto';
 import { TipoImovel } from './tipo-imovel.interface';
 import { TipoPadraoImovel } from './tipo-padrao-imovel.interface';
 
@@ -27,7 +27,7 @@ export interface Imovel {
   urlCustom: string;
   tipoImovel: TipoImovel;
   tipoPadraoImovel?: TipoPadraoImovel;
-  fotoImovelList: FotoImovel[];
+  fotoImovelList: FotoImovelDto[];
   paraVenda?: boolean;
   paraLocacao?: boolean;
   novos?: boolean;

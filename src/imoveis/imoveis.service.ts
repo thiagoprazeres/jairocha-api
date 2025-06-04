@@ -137,7 +137,7 @@ export class ImoveisService {
         (statusImovelStr ? ` com status ${statusImovelStr}` : '') +
         (novos !== undefined ? ` (${novos ? 'novos' : 'usados'})` : '')
       );
-      const imoveisSmart = await this.imoveisSmartRepository.find();
+      const imoveisSmart = await this.imoveisSmartRepository.find({ relations: ['fotoImovelList'] });
       
       // Converte ImovelSmartResponseDto[] para Imovel[]
       return imoveisSmart.map(imovelSmart => ({
@@ -161,13 +161,8 @@ export class ImoveisService {
         atualizadoem: imovelSmart.atualizadoem || new Date().toISOString(),
         dataAtualizacaoFotos: imovelSmart.dataAtualizacaoFotos || new Date().toISOString(),
         fotoImovelList: (imovelSmart.fotoImovelList || []).map(foto => ({
-          nome: foto.nome || 'Imóvel',
-          descricao: foto.descricao || '',
-          destaque: foto.destaque || 0,
+          nome: foto.nome || imovelSmart.nomeImovel || 'Imóvel',
           url: foto.url || '',
-          urlOriginal: foto.urlOriginal || foto.url || '',
-          urlThumbnail: foto.urlThumbnail || foto.url || '',
-          urlThumbnailMiddleHD: foto.urlThumbnailMiddleHD || foto.url || ''
         })),
         caracteristicasImovelList: imovelSmart.caracteristicasImovelList || [],
         caracteristicasEmpreendimentoList: imovelSmart.caracteristicasEmpreendimentoList || [],
@@ -220,13 +215,8 @@ export class ImoveisService {
         atualizadoem: imovelSmart.atualizadoem || new Date().toISOString(),
         dataAtualizacaoFotos: imovelSmart.dataAtualizacaoFotos || new Date().toISOString(),
         fotoImovelList: (imovelSmart.fotoImovelList || []).map(foto => ({
-          nome: foto.nome || 'Imóvel',
-          descricao: foto.descricao || '',
-          destaque: foto.destaque || 0,
+          nome: foto.nome || imovelSmart.nomeImovel || 'Imóvel',
           url: foto.url || '',
-          urlOriginal: foto.urlOriginal || foto.url || '',
-          urlThumbnail: foto.urlThumbnail || foto.url || '',
-          urlThumbnailMiddleHD: foto.urlThumbnailMiddleHD || foto.url || ''
         })),
         caracteristicasImovelList: imovelSmart.caracteristicasImovelList || [],
         caracteristicasEmpreendimentoList: imovelSmart.caracteristicasEmpreendimentoList || [],
