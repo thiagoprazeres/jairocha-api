@@ -137,7 +137,7 @@ export class ImoveisService {
         (statusImovelStr ? ` com status ${statusImovelStr}` : '') +
         (novos !== undefined ? ` (${novos ? 'novos' : 'usados'})` : '')
       );
-      const imoveisSmart = await this.imoveisSmartRepository.find({ relations: ['fotoImovelList'] });
+      const imoveisSmart = await this.imoveisSmartRepository.find();
       
       // Converte ImovelSmartResponseDto[] para Imovel[]
       return imoveisSmart.map(imovelSmart => ({
