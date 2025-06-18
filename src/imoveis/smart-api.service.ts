@@ -24,7 +24,9 @@ export class SmartApiService {
     statusImovelStr?: 'V' | 'L',
     novos?: boolean,
     usados?: boolean,
-    tipoImovel?: TipoImovelId
+    tipoImovel?: TipoImovelId,
+    destaqueNoBanner?: boolean,
+    destaqueNoSite?: boolean,
   ): Promise<ImovelSmartResponseDto[]> {
     const params: ImovelSmartRequestDto = {
       token,
@@ -33,6 +35,8 @@ export class SmartApiService {
       ...(tipoImovel && { tipoImovel }),
       ...(novos !== undefined && { novos }),
       ...(usados !== undefined && { usados }),
+      ...(destaqueNoBanner !== undefined && { destaqueNoBanner }),
+      ...(destaqueNoSite !== undefined && { destaqueNoSite }),
     };
 
     this.logger.log(`Filtros para busca na Smart API: ${JSON.stringify(params)}`);
@@ -84,7 +88,9 @@ export class SmartApiService {
     statusImovelStr?: 'V' | 'L',
     novos?: boolean,
     usados?: boolean,
-    tipoImovel?: TipoImovelId
+    tipoImovel?: TipoImovelId,
+    destaqueNoBanner?: boolean,
+    destaqueNoSite?: boolean,
   ): Promise<ImovelSmartResponseDto[]> {
     try {
       const token = this.configService.get<string>('TOKEN_SMART');
@@ -97,6 +103,7 @@ export class SmartApiService {
       if (novos === undefined && usados === undefined) {
         // Busca imóveis usados
         const imoveisUsados = await this.fetchImoveis(token, quantidadeImoveis, statusImovelStr, false, true, tipoImovel);
+        
         // Busca imóveis novos
         const imoveisNovos = await this.fetchImoveis(token, quantidadeImoveis, statusImovelStr, true, false, tipoImovel);
         
@@ -113,13 +120,14 @@ export class SmartApiService {
             usados: true
           }))
         ];
-        
+        // console.log(todosImoveis);
+        // console.log(plainToInstance(
+        //   ImovelSmartResponseDto, 
+        //   todosImoveis,
+        //   { excludeExtraneousValues: true }
+        // ));
         // Limita ao número solicitado de imóveis e converte para DTO
-        return plainToInstance(
-          ImovelSmartResponseDto, 
-          todosImoveis,
-          { excludeExtraneousValues: true }
-        );
+        return todosImoveis;
       }
 
       // Se ambos os filtros forem true, retorna vazio (não faz sentido um imóvel ser novo e usado ao mesmo tempo)

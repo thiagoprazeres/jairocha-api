@@ -42,4 +42,20 @@ export class SyncImoveisSmartDto {
   @IsEnum(TipoImovelId)
   @IsOptional()
   tipoImovel?: TipoImovelId;
+
+  @ApiPropertyOptional({ 
+    description: 'Destaque no banner',
+    default: false 
+  })
+  @IsBoolean()
+  @IsOptional()
+  destaqueNoBanner?: boolean;
+
+  @ApiPropertyOptional({ 
+    description: 'Destaque no site',
+    default: false 
+  })
+  @IsBoolean()
+  @IsOptional()
+  destaqueNoSite?: boolean;
 }

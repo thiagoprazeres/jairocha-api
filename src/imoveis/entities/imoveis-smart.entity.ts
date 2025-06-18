@@ -93,6 +93,14 @@ export class ImoveisSmart {
   fotodestaque?: number;
 
   @Column({ nullable: true })
+  @ApiProperty({ description: 'Destaque', required: false })
+  destaque?: string;
+
+  @Column({ nullable: true })
+  @ApiProperty({ description: 'Destaque no banner', required: false })
+  destaquebanner?: string;
+
+  @Column({ nullable: true })
   @ApiProperty({ description: 'URL customizada' })
   urlFotoDestaque: string;
 

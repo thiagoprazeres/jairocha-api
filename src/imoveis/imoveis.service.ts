@@ -80,9 +80,12 @@ export class ImoveisService {
         syncDto.statusImovelStr,
         syncDto.novos,
         syncDto.usados,
+        syncDto.tipoImovel,
+        syncDto.destaqueNoBanner,
+        syncDto.destaqueNoSite,
       ) as unknown as ImovelSmartResponseDto[];
-
-      await this.imoveisSmartRepository.save(imoveis);
+      await this.imoveisSmartRepository.save(imoveis, {chunk: 100});
+      // await this.imoveisSmartRepository.insert(imoveis);
 
       return { synced: imoveis.length };
     } catch (error) {
@@ -109,7 +112,9 @@ export class ImoveisService {
     statusImovelStr?: 'V' | 'L',
     novos?: boolean,
     usados?: boolean,
-    tipoImovel?: TipoImovelId
+    tipoImovel?: TipoImovelId,
+    destaqueNoBanner?: boolean,
+    destaqueNoSite?: boolean,
   ): Promise<ImovelSmartResponseDto[]> {
     try {
       this.logger.log(
@@ -117,7 +122,7 @@ export class ImoveisService {
         (statusImovelStr ? ` com status ${statusImovelStr}` : '') +
         (novos !== undefined ? ` (${novos ? 'novos' : 'usados'})` : '')
       );
-      return await this.smartApiService.listarImoveisSmart(quantidadeImoveis, statusImovelStr, novos, usados, tipoImovel);
+      return await this.smartApiService.listarImoveisSmart(quantidadeImoveis, statusImovelStr, novos, usados, tipoImovel, destaqueNoBanner, destaqueNoSite);
     } catch (error) {
       this.logger.error('Erro ao buscar imóveis', error.stack);
       throw error;
@@ -152,6 +157,8 @@ export class ImoveisService {
         ngaragens: imovelSmart.ngaragens || '',
         areaterreno: imovelSmart.areaterreno || '',
         fotodestaque: imovelSmart.fotodestaque || 0,
+        destaque: imovelSmart.destaque || '0',
+        destaquebanner: imovelSmart.destaquebanner || '0',
         localizacao: imovelSmart.localizacao || '',
         complemento: imovelSmart.complemento || '',
         descricao: imovelSmart.descricao || '',
@@ -206,6 +213,8 @@ export class ImoveisService {
         numero: imovelSmart.numero || '',
         areaterreno: imovelSmart.areaterreno || '',
         fotodestaque: imovelSmart.fotodestaque || 0,
+        destaque: imovelSmart.destaque || '0',
+        destaquebanner: imovelSmart.destaquebanner || '0',
         localizacao: imovelSmart.localizacao || '',
         complemento: imovelSmart.complemento || '',
         descricao: imovelSmart.descricao || '',
