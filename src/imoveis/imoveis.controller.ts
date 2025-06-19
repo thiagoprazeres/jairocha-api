@@ -154,4 +154,21 @@ export class ImoveisController {
       throw error;
     }
   }
+
+  @Get('/tipoImovel/:tipoImovel')
+  @ApiOperation({ summary: 'Busca imóveis por tipo' })
+  @ApiResponse({
+    status: 200,
+    description: 'Imóveis encontrados com sucesso',
+    type: [ImovelSmartResponseDto],
+  })
+  async findByTipoImovel(@Param('tipoImovel') tipoImovel: TipoImovelId): Promise<Imovel[]> {
+    try {
+      this.logger.log(`Buscando imóveis com tipo ${tipoImovel}`);
+      return await this.imoveisService.findByTipoImovel(tipoImovel);
+    } catch (error) {
+      this.logger.error('Erro ao buscar imóveis', error.stack);
+      throw error;
+    }
+  }
 }

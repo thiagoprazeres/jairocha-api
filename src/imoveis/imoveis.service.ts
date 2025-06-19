@@ -144,7 +144,7 @@ export class ImoveisService {
       );
       const imoveisSmart = await this.imoveisSmartRepository.find();
       
-      // Converte ImovelSmartResponseDto[] para Imovel[]
+      // Converte ImovelSmart[] para Imovel[]
       return imoveisSmart.map(imovelSmart => ({
         id: imovelSmart.id,
         codigoReferenciaImovel: imovelSmart.codigoReferenciaImovel || '',
@@ -240,6 +240,56 @@ export class ImoveisService {
         novos: imovelSmart.novos,
         usados: imovelSmart.usados
       } : null;
+    } catch (error) {
+      this.logger.error('Erro ao buscar imóveis', error.stack);
+      throw error;
+    }
+  }
+
+  async findByTipoImovel(tipoImovel: TipoImovelId): Promise<Imovel[]> {
+    try {
+      this.logger.log(`Buscando imóveis com tipo ${tipoImovel}`);
+      const imoveisSmart = await this.imoveisSmartRepository.find({ where: { idTipoImovel: tipoImovel.toString() } });
+      // Converte ImovelSmart[] para Imovel[]
+      return imoveisSmart.map(imovelSmart => ({
+        id: imovelSmart.id,
+        codigoReferenciaImovel: imovelSmart.codigoReferenciaImovel || '',
+        nomeImovel: imovelSmart.nomeImovel || '',
+        preco: imovelSmart.preco || 0,
+        endereco: imovelSmart.endereco || '',
+        numero: imovelSmart.numero || '',
+        nquartos: imovelSmart.nquartos || '',
+        nsuites: imovelSmart.nsuites || '',
+        ngaragens: imovelSmart.ngaragens || '',
+        areaterreno: imovelSmart.areaterreno || '',
+        fotodestaque: imovelSmart.fotodestaque || 0,
+        destaque: imovelSmart.destaque || '0',
+        destaquebanner: imovelSmart.destaquebanner || '0',
+        localizacao: imovelSmart.localizacao || '',
+        complemento: imovelSmart.complemento || '',
+        descricao: imovelSmart.descricao || '',
+        tipoImovel: this.getTipoImovel(Number(imovelSmart.idTipoImovel) || 0, imovelSmart.tipoImovel || '', imovelSmart.categoria || ''),
+        nomeBairro: imovelSmart.nomeBairro || '',
+        nomeCidade: imovelSmart.nomeCidade || '',
+        siglaEstado: imovelSmart.siglaEstado || '',
+        nomeEstado: imovelSmart.nomeEstado || '',
+        dataCadastroImovel: imovelSmart.dataCadastroImovel || new Date().toISOString(),
+        atualizadoem: imovelSmart.atualizadoem || new Date().toISOString(),
+        dataAtualizacaoFotos: imovelSmart.dataAtualizacaoFotos || new Date().toISOString(),
+        fotoImovelList: (imovelSmart.fotoImovelList || []).map(foto => ({
+          nome: foto.nome || imovelSmart.nomeImovel || 'Imóvel',
+          url: foto.url || '',
+        })),
+        caracteristicasImovelList: imovelSmart.caracteristicasImovelList || [],
+        caracteristicasEmpreendimentoList: imovelSmart.caracteristicasEmpreendimentoList || [],
+        urlCustom: imovelSmart.urlCustom || '',
+        urlFotoDestaque: imovelSmart.urlFotoDestaque || '',
+        tipoPadraoImovel: imovelSmart.tipoPadraoImovel ? this.getTipoPadraoImovel(imovelSmart.tipoPadraoImovel || 0) : undefined,
+        paraVenda: imovelSmart.paraVenda,
+        paraLocacao: imovelSmart.paraLocacao,
+        novos: imovelSmart.novos,
+        usados: imovelSmart.usados
+      }));
     } catch (error) {
       this.logger.error('Erro ao buscar imóveis', error.stack);
       throw error;
