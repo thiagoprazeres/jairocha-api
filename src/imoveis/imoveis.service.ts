@@ -150,6 +150,7 @@ export class ImoveisService {
         codigoReferenciaImovel: imovelSmart.codigoReferenciaImovel || '',
         nomeImovel: imovelSmart.nomeImovel || '',
         preco: imovelSmart.preco || 0,
+        precoLocacao: imovelSmart.precoLocacao || 0,
         endereco: imovelSmart.endereco || '',
         numero: imovelSmart.numero || '',
         nquartos: imovelSmart.nquartos || '',
@@ -209,6 +210,7 @@ export class ImoveisService {
         codigoReferenciaImovel: imovelSmart.codigoReferenciaImovel || '',
         nomeImovel: imovelSmart.nomeImovel || '',
         preco: imovelSmart.preco || 0,
+        precoLocacao: imovelSmart.precoLocacao || 0,
         endereco: imovelSmart.endereco || '',
         numero: imovelSmart.numero || '',
         areaterreno: imovelSmart.areaterreno || '',
@@ -256,6 +258,64 @@ export class ImoveisService {
         codigoReferenciaImovel: imovelSmart.codigoReferenciaImovel || '',
         nomeImovel: imovelSmart.nomeImovel || '',
         preco: imovelSmart.preco || 0,
+        precoLocacao: imovelSmart.precoLocacao || 0,
+        endereco: imovelSmart.endereco || '',
+        numero: imovelSmart.numero || '',
+        nquartos: imovelSmart.nquartos || '',
+        nsuites: imovelSmart.nsuites || '',
+        ngaragens: imovelSmart.ngaragens || '',
+        areaterreno: imovelSmart.areaterreno || '',
+        fotodestaque: imovelSmart.fotodestaque || 0,
+        destaque: imovelSmart.destaque || '0',
+        destaquebanner: imovelSmart.destaquebanner || '0',
+        localizacao: imovelSmart.localizacao || '',
+        complemento: imovelSmart.complemento || '',
+        descricao: imovelSmart.descricao || '',
+        tipoImovel: this.getTipoImovel(Number(imovelSmart.idTipoImovel) || 0, imovelSmart.tipoImovel || '', imovelSmart.categoria || ''),
+        nomeBairro: imovelSmart.nomeBairro || '',
+        nomeCidade: imovelSmart.nomeCidade || '',
+        siglaEstado: imovelSmart.siglaEstado || '',
+        nomeEstado: imovelSmart.nomeEstado || '',
+        dataCadastroImovel: imovelSmart.dataCadastroImovel || new Date().toISOString(),
+        atualizadoem: imovelSmart.atualizadoem || new Date().toISOString(),
+        dataAtualizacaoFotos: imovelSmart.dataAtualizacaoFotos || new Date().toISOString(),
+        fotoImovelList: (imovelSmart.fotoImovelList || []).map(foto => ({
+          nome: foto.nome || imovelSmart.nomeImovel || 'Imóvel',
+          url: foto.url || '',
+        })),
+        caracteristicasImovelList: imovelSmart.caracteristicasImovelList || [],
+        caracteristicasEmpreendimentoList: imovelSmart.caracteristicasEmpreendimentoList || [],
+        urlCustom: imovelSmart.urlCustom || '',
+        urlFotoDestaque: imovelSmart.urlFotoDestaque || '',
+        tipoPadraoImovel: imovelSmart.tipoPadraoImovel ? this.getTipoPadraoImovel(imovelSmart.tipoPadraoImovel || 0) : undefined,
+        paraVenda: imovelSmart.paraVenda,
+        paraLocacao: imovelSmart.paraLocacao,
+        novos: imovelSmart.novos,
+        usados: imovelSmart.usados
+      }));
+    } catch (error) {
+      this.logger.error('Erro ao buscar imóveis', error.stack);
+      throw error;
+    }
+  }
+
+  async findByDestaqueOrDestaqueNoBanner(destaqueOrDestaqueNoBanner: boolean): Promise<Imovel[]> {
+    try {
+      this.logger.log(`Buscando imóveis com destaque no banner ${destaqueOrDestaqueNoBanner}`);
+      const valorDestaque = destaqueOrDestaqueNoBanner ? '1' : '0';
+      const imoveisSmart = await this.imoveisSmartRepository.find({
+        where: [
+          { destaquebanner: valorDestaque },
+          { destaque: valorDestaque },
+        ],
+      });
+      // Converte ImovelSmart[] para Imovel[]
+      return imoveisSmart.map(imovelSmart => ({
+        id: imovelSmart.id,
+        codigoReferenciaImovel: imovelSmart.codigoReferenciaImovel || '',
+        nomeImovel: imovelSmart.nomeImovel || '',
+        preco: imovelSmart.preco || 0,
+        precoLocacao: imovelSmart.precoLocacao || 0,
         endereco: imovelSmart.endereco || '',
         numero: imovelSmart.numero || '',
         nquartos: imovelSmart.nquartos || '',

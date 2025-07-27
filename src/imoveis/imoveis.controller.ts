@@ -171,4 +171,21 @@ export class ImoveisController {
       throw error;
     }
   }
+
+  @Get('/destaqueNoBanner/:destaqueOrDestaqueNoBanner')
+  @ApiOperation({ summary: 'Busca imóveis com destaque no banner' })
+  @ApiResponse({
+    status: 200,
+    description: 'Imóveis encontrados com sucesso',
+    type: [ImovelSmartResponseDto],
+  })
+  async findByDestaqueNoBanner(@Param('destaqueOrDestaqueNoBanner') destaqueOrDestaqueNoBanner: boolean): Promise<Imovel[]> {
+    try {
+      this.logger.log('Buscando imóveis com destaque no banner');
+      return await this.imoveisService.findByDestaqueOrDestaqueNoBanner(destaqueOrDestaqueNoBanner);
+    } catch (error) {
+      this.logger.error('Erro ao buscar imóveis', error.stack);
+      throw error;
+    }
+  }
 }
