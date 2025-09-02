@@ -84,7 +84,19 @@ export class ImoveisService {
         syncDto.destaqueNoBanner,
         syncDto.destaqueNoSite,
       ) as unknown as ImovelSmartResponseDto[];
-      await this.imoveisSmartRepository.clear();
+      const qr = this.imoveisSmartRepository.manager.connection.createQueryRunner();
+      await qr.connect();
+      await qr.startTransaction();
+      try {
+        await qr.query('TRUNCATE TABLE "foto_imovel_list" RESTART IDENTITY CASCADE');
+        await qr.query('TRUNCATE TABLE "imoveis_smart" RESTART IDENTITY CASCADE');
+        await qr.commitTransaction();
+      } catch (e) {
+        await qr.rollbackTransaction();
+        throw e;
+      } finally {
+        await qr.release();
+      }
       await this.imoveisSmartRepository.save(imoveis, {chunk: 100});
 
       return { synced: imoveis.length };
