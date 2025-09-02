@@ -75,7 +75,7 @@ export class ImoveisService {
 
   async syncImoveisSmart(syncDto: SyncImoveisSmartDto): Promise<{ synced: number }> {
     try {
-      const imoveis = await this.findAllSmart(
+      let imoveis = await this.findAllSmart(
         syncDto.quantidadeImoveis || 999,
         syncDto.statusImovelStr,
         syncDto.novos,
@@ -84,6 +84,14 @@ export class ImoveisService {
         syncDto.destaqueNoBanner,
         syncDto.destaqueNoSite,
       ) as unknown as ImovelSmartResponseDto[];
+      // Mapea a urlFotoDestaque para o foto destaque da lista de fotos se for NULL
+      imoveis = imoveis.map(imovel => {
+        if (!imovel.urlFotoDestaque) {
+          imovel.urlFotoDestaque = imovel.fotoImovelList.find(foto => foto.destaque === 1)?.url || imovel.fotoImovelList[0].url || '';
+        }
+        return imovel;
+      });
+      
       const qr = this.imoveisSmartRepository.manager.connection.createQueryRunner();
       await qr.connect();
       await qr.startTransaction();
