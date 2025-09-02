@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, PrimaryColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
-import { FotoImovel } from './foto-imovel.entity';
+import { FotoImovelList } from './foto-imovel-list.entity';
 
 @Entity('imoveis_smart')
 export class ImoveisSmart {
@@ -185,9 +185,9 @@ export class ImoveisSmart {
   nomeMostrarInternet: string;
 
   // Relationship with FotoImovel
-  @OneToMany(() => FotoImovel, foto => foto.imoveisSmart, { cascade: true })
-  @ApiProperty({ type: () => [FotoImovel], description: 'Fotos do imóvel' })
-  fotoImovelList: FotoImovel[];
+  @OneToMany(() => FotoImovelList, foto => foto.imoveisSmart, { cascade: true, })
+  @ApiProperty({ type: () => [FotoImovelList], description: 'Fotos do imóvel' })
+  fotoImovelList: FotoImovelList[];
 
   // Boolean-like string fields with default 'N' for false
   @Column({ default: 'N', name: 'tem_interfone' })

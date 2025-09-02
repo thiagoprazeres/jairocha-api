@@ -10,7 +10,7 @@ import {
 } from './enums/imovel.enum';
 import { tiposImoveis, tipoPadraoImoveis } from './data/enum.data';
 import { ImoveisSmart } from './entities/imoveis-smart.entity';
-import { FotoImovel } from './entities/foto-imovel.entity';
+import { FotoImovelList } from './entities/foto-imovel-list.entity';
 import { SyncImoveisSmartDto } from './dto/sync-imoveis-smart.dto';
 
 @Injectable()
@@ -20,8 +20,8 @@ export class ImoveisService {
   constructor(
     @InjectRepository(ImoveisSmart)
     private readonly imoveisSmartRepository: Repository<ImoveisSmart>,
-    @InjectRepository(FotoImovel)
-    private readonly fotoImovelRepository: Repository<FotoImovel>,
+    @InjectRepository(FotoImovelList)
+    private readonly fotoImovelListRepository: Repository<FotoImovelList>,
     private readonly smartApiService: SmartApiService,
     private readonly configService: ConfigService,
   ) {}
@@ -76,7 +76,7 @@ export class ImoveisService {
   async syncImoveisSmart(syncDto: SyncImoveisSmartDto): Promise<{ synced: number }> {
     try {
       const imoveis = await this.findAllSmart(
-        syncDto.quantidadeImoveis || 1,
+        syncDto.quantidadeImoveis || 999,
         syncDto.statusImovelStr,
         syncDto.novos,
         syncDto.usados,
@@ -84,8 +84,8 @@ export class ImoveisService {
         syncDto.destaqueNoBanner,
         syncDto.destaqueNoSite,
       ) as unknown as ImovelSmartResponseDto[];
+      await this.imoveisSmartRepository.clear();
       await this.imoveisSmartRepository.save(imoveis, {chunk: 100});
-      // await this.imoveisSmartRepository.insert(imoveis);
 
       return { synced: imoveis.length };
     } catch (error) {
@@ -108,7 +108,7 @@ export class ImoveisService {
   }
 
   async findAllSmart(
-    quantidadeImoveis = 1,
+    quantidadeImoveis = 999,
     statusImovelStr?: 'V' | 'L',
     novos?: boolean,
     usados?: boolean,
