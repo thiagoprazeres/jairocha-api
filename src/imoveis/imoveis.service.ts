@@ -91,6 +91,8 @@ export class ImoveisService {
         }
         return imovel;
       });
+      // Remove imóveis que tenham codigo_imovel != codigo_referencia_imovel
+      imoveis = imoveis.filter(imovel => imovel.codigoImovel === imovel.codigoReferenciaImovel);
       
       const qr = this.imoveisSmartRepository.manager.connection.createQueryRunner();
       await qr.connect();

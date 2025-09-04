@@ -11,6 +11,10 @@ export class ImovelSmartResponseDto {
   id: number;
 
   @Expose()
+  @ApiProperty({ description: 'Código do imóvel' })
+  codigoImovel: string;
+
+  @Expose()
   @ApiProperty({ description: 'Código de referência do imóvel' })
   codigoReferenciaImovel: string;
 

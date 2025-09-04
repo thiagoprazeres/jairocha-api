@@ -8,6 +8,10 @@ export class ImoveisSmart {
   @ApiProperty({ description: 'ID único do imóvel' })
   id: number;
 
+  @Column({ name: 'codigo_imovel' })
+  @ApiProperty({ description: 'Código do imóvel' })
+  codigoImovel: string;
+
   @Column({ name: 'codigo_referencia_imovel' })
   @ApiProperty({ description: 'Código de referência do imóvel' })
   codigoReferenciaImovel: string;
