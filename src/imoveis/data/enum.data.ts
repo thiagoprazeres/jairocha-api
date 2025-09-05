@@ -2,12 +2,72 @@ import { CategoriaImovel } from '../interfaces/categoria-imovel.interface';
 import { TipoImovel } from '../interfaces/tipo-imovel.interface';
 import {
   CategoriaImovelId,
+  EstagioObraId,
+  SituacaoEmpreendimentoId,
   TipoImovelId,
   TipoPadraoImovelId,
   TipoTerrenoLoteamentoId,
 } from '../enums/imovel.enum';
 import { TipoPadraoImovel } from '../interfaces/tipo-padrao-imovel.interface';
 import { TipoTerrenoLoteamento } from '../interfaces/tipo-terreno-loteamento';
+import { EstagioObra } from '../interfaces/estagio-obra.interface';
+import { SituacaoEmpreendimento } from '../interfaces/situacao-empreendimento.interface';
+
+export const estagiosObra: EstagioObra[] = [
+  {
+    id: EstagioObraId.Planta,
+    nome: 'Planta',
+    slug: 'planta',
+  },
+  {
+    id: EstagioObraId.Fundacao,
+    nome: 'Fundação',
+    slug: 'fundacao',
+  },
+  {
+    id: EstagioObraId.Estrutura,
+    nome: 'Estrutura',
+    slug: 'estrutura',
+  },
+  {
+    id: EstagioObraId.EstruturaConcluida,
+    nome: 'Estrutura Concluída',
+    slug: 'estrutura-concluida',
+  },
+  {
+    id: EstagioObraId.FaseAcabamento,
+    nome: 'Fase Acabamento',
+    slug: 'fase-acabamento',
+  },
+  {
+    id: EstagioObraId.Pronto,
+    nome: 'Pronto',
+    slug: 'pronto',
+  },
+];
+
+export const situacoesEmpreendimentos: SituacaoEmpreendimento[] = [
+  {
+    id: SituacaoEmpreendimentoId.PreLancamento,
+    nome: 'Pré-Lançamento',
+    slug: 'pre-lancamento',
+  },
+  {
+    id: SituacaoEmpreendimentoId.Lancamento,
+    nome: 'Lançamento',
+    slug: 'lancamento',
+  },
+  {
+    id: SituacaoEmpreendimentoId.UnidadesDisponiveis,
+    nome: 'Unidades Disponíveis',
+    slug: 'unidades-disponiveis',
+  },
+  {
+    id: SituacaoEmpreendimentoId.TotalmenteVendido,
+    nome: 'Totalmente Vendido',
+    slug: 'totalmente-vendido',
+  },
+];
 
 export const categoriasImoveis: CategoriaImovel[] = [
   {

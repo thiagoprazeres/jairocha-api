@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, PrimaryColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { FotoImovelList } from './foto-imovel-list.entity';
+import { EstagioObraId, SituacaoEmpreendimentoId } from '../enums/imovel.enum';
 
 @Entity('imoveis_smart')
 export class ImoveisSmart {
@@ -95,6 +96,10 @@ export class ImoveisSmart {
   @Column({ nullable: true })
   @ApiProperty({ description: 'ID da foto de destaque', required: false })
   fotodestaque?: number;
+
+  @Column({ nullable: true })
+  @ApiProperty({ description: 'Tour virtual', required: false })
+  tourVirtual?: string;
 
   @Column({ nullable: true })
   @ApiProperty({ description: 'Destaque', required: false })
@@ -522,4 +527,12 @@ export class ImoveisSmart {
   @Column({ nullable: true })
   @ApiProperty({ description: 'Indica se o imóvel é usado', required: false })
   usados: boolean;
+
+  @Column({ nullable: true })
+  @ApiProperty({ description: 'Estágio da obra', required: false })
+  estagioObra: EstagioObraId;
+
+  @Column({ nullable: true })
+  @ApiProperty({ description: 'Situação do empreendimento', required: false })
+  situacaoEmpreendimento: SituacaoEmpreendimentoId;
 }

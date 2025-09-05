@@ -1,3 +1,19 @@
+export enum EstagioObraId {
+  Planta = 1,
+  Fundacao = 2,
+  Estrutura = 3,
+  EstruturaConcluida = 4,
+  FaseAcabamento = 5,
+  Pronto = 6,
+}
+
+export enum SituacaoEmpreendimentoId {
+  PreLancamento = 0,
+  Lancamento = 1,
+  UnidadesDisponiveis = 2,
+  TotalmenteVendido = 3,
+}
+
 export enum CategoriaImovelId {
   Residencial = 0,
   Comercial = 1,
