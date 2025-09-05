@@ -1,4 +1,5 @@
 import { FotoImovelDto } from '../dto/foto-imovel.dto';
+import { EstagioObraId, SituacaoEmpreendimentoId } from '../enums/imovel.enum';
 import { TipoImovel } from './tipo-imovel.interface';
 import { TipoPadraoImovel } from './tipo-padrao-imovel.interface';
 
@@ -31,8 +32,11 @@ export interface Imovel {
   tipoImovel: TipoImovel;
   tipoPadraoImovel?: TipoPadraoImovel;
   fotoImovelList: FotoImovelDto[];
+  tourVirtual?: string;
   paraVenda?: boolean;
   paraLocacao?: boolean;
   novos?: boolean;
   usados?: boolean;
+  estagioObra?: EstagioObraId;
+  situacaoEmpreendimento?: SituacaoEmpreendimentoId;
 }

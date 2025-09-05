@@ -197,6 +197,7 @@ export class ImoveisService {
           nome: foto.nome || imovelSmart.nomeImovel || 'Imóvel',
           url: foto.url || '',
         })),
+        tourVirtual: imovelSmart.tourVirtual || '',
         caracteristicasImovelList: imovelSmart.caracteristicasImovelList || [],
         caracteristicasEmpreendimentoList: imovelSmart.caracteristicasEmpreendimentoList || [],
         urlCustom: imovelSmart.urlCustom || '',
@@ -205,7 +206,9 @@ export class ImoveisService {
         paraVenda: imovelSmart.paraVenda,
         paraLocacao: imovelSmart.paraLocacao,
         novos: imovelSmart.novos,
-        usados: imovelSmart.usados
+        usados: imovelSmart.usados,
+        estagioObra: imovelSmart.estagioObra,
+        situacaoEmpreendimento: imovelSmart.situacaoEmpreendimento,
       }));
     } catch (error) {
       this.logger.error('Erro ao buscar imóveis', error.stack);
@@ -254,6 +257,7 @@ export class ImoveisService {
           nome: foto.nome || imovelSmart.nomeImovel || 'Imóvel',
           url: foto.url || '',
         })),
+        tourVirtual: imovelSmart.tourVirtual || '',
         caracteristicasImovelList: imovelSmart.caracteristicasImovelList || [],
         caracteristicasEmpreendimentoList: imovelSmart.caracteristicasEmpreendimentoList || [],
         urlCustom: imovelSmart.urlCustom || '',
@@ -262,7 +266,9 @@ export class ImoveisService {
         paraVenda: imovelSmart.paraVenda,
         paraLocacao: imovelSmart.paraLocacao,
         novos: imovelSmart.novos,
-        usados: imovelSmart.usados
+        usados: imovelSmart.usados,
+        estagioObra: imovelSmart.estagioObra,
+        situacaoEmpreendimento: imovelSmart.situacaoEmpreendimento,
       } : null;
     } catch (error) {
       this.logger.error('Erro ao buscar imóveis', error.stack);
@@ -305,6 +311,7 @@ export class ImoveisService {
           nome: foto.nome || imovelSmart.nomeImovel || 'Imóvel',
           url: foto.url || '',
         })),
+        tourVirtual: imovelSmart.tourVirtual || '',
         caracteristicasImovelList: imovelSmart.caracteristicasImovelList || [],
         caracteristicasEmpreendimentoList: imovelSmart.caracteristicasEmpreendimentoList || [],
         urlCustom: imovelSmart.urlCustom || '',
@@ -313,7 +320,9 @@ export class ImoveisService {
         paraVenda: imovelSmart.paraVenda,
         paraLocacao: imovelSmart.paraLocacao,
         novos: imovelSmart.novos,
-        usados: imovelSmart.usados
+        usados: imovelSmart.usados,
+        estagioObra: imovelSmart.estagioObra,
+        situacaoEmpreendimento: imovelSmart.situacaoEmpreendimento,
       }));
     } catch (error) {
       this.logger.error('Erro ao buscar imóveis', error.stack);
@@ -362,6 +371,7 @@ export class ImoveisService {
           nome: foto.nome || imovelSmart.nomeImovel || 'Imóvel',
           url: foto.url || '',
         })),
+        tourVirtual: imovelSmart.tourVirtual || '',
         caracteristicasImovelList: imovelSmart.caracteristicasImovelList || [],
         caracteristicasEmpreendimentoList: imovelSmart.caracteristicasEmpreendimentoList || [],
         urlCustom: imovelSmart.urlCustom || '',
@@ -370,7 +380,9 @@ export class ImoveisService {
         paraVenda: imovelSmart.paraVenda,
         paraLocacao: imovelSmart.paraLocacao,
         novos: imovelSmart.novos,
-        usados: imovelSmart.usados
+        usados: imovelSmart.usados,
+        estagioObra: imovelSmart.estagioObra,
+        situacaoEmpreendimento: imovelSmart.situacaoEmpreendimento,
       }));
     } catch (error) {
       this.logger.error('Erro ao buscar imóveis', error.stack);
