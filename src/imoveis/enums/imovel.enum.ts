@@ -5,6 +5,8 @@ export enum EstagioObraId {
   EstruturaConcluida = 4,
   FaseAcabamento = 5,
   Pronto = 6,
+  Projeto = 7,
+  EmConstrucao = 8,
 }
 
 export enum SituacaoEmpreendimentoId {

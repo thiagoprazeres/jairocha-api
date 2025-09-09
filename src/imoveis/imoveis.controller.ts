@@ -94,6 +94,25 @@ export class ImoveisController {
     return this.imoveisService.syncImoveisSmart(syncDto);
   }
 
+  @Get('sync')
+  @ApiOperation({ summary: 'Sincroniza todos os imóveis da Smart API com o banco de dados' })
+  @ApiResponse({
+    status: 201,
+    description: 'Imóveis sincronizados com sucesso',
+    schema: {
+      type: 'object',
+      properties: {
+        synced: { type: 'number', description: 'Número de imóveis sincronizados' }
+      }
+    },
+  })
+  async syncAllImoveisSmart(): Promise<{ synced: number }> {
+    const syncDto: SyncImoveisSmartDto = {
+      quantidadeImoveis: 999
+    };
+    return this.imoveisService.syncImoveisSmart(syncDto);
+  }
+
   @Get('smart')
   @ApiOperation({ summary: 'Lista imóveis da Smart API' })
   @ApiResponse({
